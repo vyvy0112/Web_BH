@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+
+@model RegisterVM
+
+
+<section id="">
+	<!--form-->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-1">
+				<div class="login-form">
+					<!--login form-->
+					<h2>Đăng Nhập</h2>
+					
+					<form asp-action="Register" asp-asp-route-returnurl="@ViewBag.ReturnUrl" method="post">
+						<div class="text-danger" asp-validation-summary="All"> </div>
+						<div>
+							<label>Tên đăng nhập:</label>
+							<input asp-for="@Model.UserName" class="form-control" />
+							<span asp-validation-for="UserName" class="text-danger"></span>
+						</div>
+						
+						<div>
+							<label>Mật khẩu:</label>
+							<input asp-for="@Model.Password" type="password" class="form-control" />
+							<span asp-validation-for="Password" class="text-danger"></span>
+						</div>
+						<button type="submit" class="btn btn-primary">Đăng Nhập</button>
+
+
+@* 						<a asp-controller="Account" asp-action="QuenMatKhau" class = "btn border-danger"> Quên mật khẩu </a>
+ *@				
+                    </form>
+
+				</div><!--/login form-->
+			</div>
+		</div>
+	</div>
+</section><!--/form-->
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
+
+
