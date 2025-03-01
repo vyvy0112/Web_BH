@@ -24,6 +24,8 @@ namespace WEB.ViewModels
 		[Required(ErrorMessage = "Mật khẩu không được để trống")]
 		public string Password { get; set; } = null!;
 
+
+		public string Adrress { get; set; }
 		//public string? Role { get; set; }
 	}
 }

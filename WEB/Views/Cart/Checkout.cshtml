@@ -37,25 +37,23 @@
 
 			<div class="shopper-informations">
 				<div class="row">
-					<div class="col-sm-3">
-						<div class="shopper-info">
-							<p>Shopper Information</p>
-							<form>
-								<input type="text" placeholder="Display Name">
-								<input type="text" placeholder="User Name">
-								<input type="password" placeholder="Password">
-								<input type="password" placeholder="Confirm password">
-							</form>
-							<a class="btn btn-primary" href="">Get Quotes</a>
-							<a class="btn btn-primary" href="">Continue</a>
-						</div>
-					</div>
-					<div class="col-sm-5 clearfix">
+					<div class="col-sm-8 clearfix">
 						<div class="bill-to">
 							<p>Bill To</p>
 							<div class="form-one">
 								<form>
-									<input type="text" placeholder="Company Name">
+									<div class="form-check my-3">
+										<input type="checkbox" name="giongkhachhang" class="form-check-input" id="giongkhachhang" value="0" />
+										<label class="form-check-label" for="giongkhachhang">Giống thông tin khách hàng </label>
+									</div>
+								<div class="form-item">
+									<label class="form-label my-3"> Người nhận hàng</label>
+									<input type="text" name="UserName" class="form-control"/>
+								</div>
+								<div class="form-item">
+									<label class="form-label my-3"> Địa chỉ nhận hàng</label>
+									<input type="text" name="Adrress" class="form-control" placeholder="18 Nguyễn Văn Linh" />
+								</div>
 									<input type="text" placeholder="Email*">
 									<input type="text" placeholder="Title">
 									<input type="text" placeholder="First Name *">
@@ -65,44 +63,13 @@
 									<input type="text" placeholder="Address 2">
 								</form>
 							</div>
-							<div class="form-two">
-								<form>
-									<input type="text" placeholder="Zip / Postal Code *">
-									<select>
-										<option>-- Country --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-									<select>
-										<option>-- State / Province / Region --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-									<input type="password" placeholder="Confirm password">
-									<input type="text" placeholder="Phone *">
-									<input type="text" placeholder="Mobile Phone">
-									<input type="text" placeholder="Fax">
-								</form>
-							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="order-message">
-							<p>Shipping Order</p>
-							<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-							<label><input type="checkbox"> Shipping to bill address</label>
+							<p>Note</p>
+							<textarea name="Note"  placeholder="Ghi chú" rows="16"></textarea>
+							<label><input type="checkbox"> Ghi chú</label>
 						</div>	
 					</div>					
 				</div>
@@ -139,13 +106,13 @@
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
-										<a class="cart_quantity_up" href=""> + </a>
-										<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-										<a class="cart_quantity_down" href=""> - </a>
+									<a class="cart_quantity_down" asp-controller="Cart" asp-action="DecreaseCart" asp-route-id="@item.ProductId"> - </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" autocomplete="off" size="2">
+									<a class="cart_quantity_up" asp-controller="Cart" asp-action="IncreaseCart" asp-route-id="@item.ProductId"> + </a>
 									</div>
 								</td>
 								<td class="cart_total">
-										<p class="cart_total_price">@item.Price.ToString("#,##") VND</p>
+								<p class="cart_total_price">@item.TotalPrice.ToString("#,##") VND</p>
 								</td>
 								<td class="cart_delete">
 									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>

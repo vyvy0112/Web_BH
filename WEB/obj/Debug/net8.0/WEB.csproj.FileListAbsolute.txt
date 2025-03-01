@@ -874,3 +874,4 @@ C:\BanHang\MOBI-main\WEB\WEB\obj\Debug\net8.0\refint\WEB.dll
 C:\BanHang\MOBI-main\WEB\WEB\obj\Debug\net8.0\WEB.pdb
 C:\BanHang\MOBI-main\WEB\WEB\obj\Debug\net8.0\WEB.genruntimeconfig.cache
 C:\BanHang\MOBI-main\WEB\WEB\obj\Debug\net8.0\ref\WEB.dll
+C:\BanHang\MOBI-main\WEB\WEB\obj\Debug\net8.0\WEB.sourcelink.json

@@ -24,14 +24,14 @@
 
 	public class CheckoutVM()
 	{
-		public int ProductId { get; set; }
+		public bool giongkhachhang { get; set; }
+		public string? UserName { get; set; }
 
-		public string Image { get; set; }
-		public string ProductName { get; set; }
-		public double Price { get; set; }
+		public string? Adrress { get; set; }
 
-		public int Quantity { get; set; }
+		public string? Email { get; set; }
 
-		public double TotalPrice => Price * Quantity;
+		public string? Note { get; set; }
+
 	}
 }

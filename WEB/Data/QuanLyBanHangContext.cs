@@ -17,11 +17,15 @@ public partial class QuanLyBanHangContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<Customer> Customers { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
+
+    public virtual DbSet<Status> Statuses { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -41,38 +45,56 @@ public partial class QuanLyBanHangContext : DbContext
             entity.Property(e => e.CategoryName).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.ToTable("Customer");
+
+            entity.Property(e => e.CustomerId).HasMaxLength(50);
+            entity.Property(e => e.Address).HasMaxLength(100);
+            entity.Property(e => e.CustomerName).HasMaxLength(100);
+            entity.Property(e => e.DateofBirth).HasColumnType("datetime");
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.Password).HasMaxLength(100);
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAF2E2312E4");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAFE5B0072B");
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
-            entity.Property(e => e.Adrress).HasMaxLength(100);
+            entity.Property(e => e.Address).HasMaxLength(100);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.DeliveryDate).HasColumnType("datetime");
-            entity.Property(e => e.OrderStatus)
-                .HasMaxLength(20)
-                .HasDefaultValue("X? Lý");
+            entity.Property(e => e.PaymentMethod).HasMaxLength(100);
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.ProductName).HasMaxLength(100);
-            entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.UserId)
+                .HasMaxLength(50)
+                .HasColumnName("UserID");
             entity.Property(e => e.UserName).HasMaxLength(100);
 
             entity.HasOne(d => d.Product).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__Orders__ProductI__681373AD");
+                .HasConstraintName("FK__Orders__ProductI__3FD07829");
+
+            entity.HasOne(d => d.Status).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.StatusId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK__Orders__StatusId__40C49C62");
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__Orders__UserID__671F4F74");
+                .HasConstraintName("FK__Orders__UserID__3EDC53F0");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30CA99B826A");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30C1A9BC7E2");
 
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
@@ -81,12 +103,12 @@ public partial class QuanLyBanHangContext : DbContext
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__OrderDeta__Order__6CD828CA");
+                .HasConstraintName("FK__OrderDeta__Order__4589517F");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__OrderDeta__Produ__6DCC4D03");
+                .HasConstraintName("FK__OrderDeta__Produ__467D75B8");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -107,11 +129,26 @@ public partial class QuanLyBanHangContext : DbContext
                 .HasConstraintName("FK__Products__Catego__68487DD7");
         });
 
+        modelBuilder.Entity<Status>(entity =>
+        {
+            entity.HasKey(e => e.StatusId).HasName("PK__Status__C8EE2043AA09F623");
+
+            entity.ToTable("Status");
+
+            entity.HasIndex(e => e.StatusName, "UQ__Status__05E7698A709A987F").IsUnique();
+
+            entity.Property(e => e.StatusId).HasColumnName("StatusID");
+            entity.Property(e => e.Deccription).HasMaxLength(100);
+            entity.Property(e => e.StatusName).HasMaxLength(100);
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC6FE504DD");
 
-            entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.UserId)
+                .HasMaxLength(50)
+                .HasColumnName("UserID");
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Password).HasMaxLength(100);
             entity.Property(e => e.Role)
