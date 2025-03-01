@@ -15,7 +15,7 @@
 					<!--login form-->
 					<h2>Đăng Nhập</h2>
 					
-					<form asp-action="Register" asp-asp-route-returnurl="@ViewBag.ReturnUrl" method="post">
+					<form asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" asp-controller="Account">
 						<div class="text-danger" asp-validation-summary="All"> </div>
 						<div>
 							<label>Tên đăng nhập:</label>

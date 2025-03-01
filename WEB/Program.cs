@@ -36,6 +36,7 @@ builder.Services.AddScoped<ICategotyProductRepository, CategoryProductReposity>(
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile)); //dang ky
 
+https://learn.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-9.0
 builder.Services.AddAuthentication
 	(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 	{
@@ -68,6 +69,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 });
+
+
 var app = builder.Build();
 
 

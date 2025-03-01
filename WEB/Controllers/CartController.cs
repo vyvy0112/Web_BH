@@ -129,29 +129,7 @@ namespace WEB.Controllers
 
 
 
-		////[Authorize]
-		//[HttpGet]
-		//public IActionResult Checkout()
-		//{
-		//	var giohang = Cart;
-		//	if(Cart.Count == 0)
-		//	{
-		//		return Redirect("/");
-		//	}
-		//	return View(Cart);
-		//}
-
-		////[Authorize]
-		//[HttpPost]
-		//public IActionResult Checkout(CheckoutVM model)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_UserId);
-		//	}
-		//	return View(Cart);
-		//}
-
+		
 		[HttpGet]
 		public IActionResult Checkout()
 		{
@@ -164,27 +142,6 @@ namespace WEB.Controllers
 		}
 
 
-		//[HttpPost]
-		//public IActionResult Checkout(CheckoutVM model)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		var userid = _context.Users.SingleOrDefault(p => p.UserId == userIdInt);
-
-		//		//var userId=HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_UserId).Value;
-		//		var user = new User();
-		//		if (model.giongkhachhang)
-		//		{
-		//			user = _context.Users.SingleOrDefault(p => p.UserId == userid);
-		//		}
-		//		var hoadon = new Order
-		//		{
-
-		//		};
-		//	}
-		//	return View(Cart);
-		//}
-
 		[HttpPost]
 		public IActionResult Checkout(CheckoutVM model)
 		{
@@ -193,19 +150,18 @@ namespace WEB.Controllers
 				// Lấy UserId từ Claims và chuyển đổi sang int
 				var userId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_UserId).Value;
 				// Lấy user từ database theo userId
-				var user = _context.Users.SingleOrDefault(p => p.UserId == userId);
-				var khachhang = new User();
+				var khachhang = new Customer();
 
 				if (model.giongkhachhang)
 				{
-					khachhang = _context.Users.SingleOrDefault(p => p.UserId == user.UserId);
+					khachhang = _context.Customers.SingleOrDefault(kh => kh.CustomerId == userId);
 				}
 
-				var hoadon = new Order 
+				var hoadon = new Order
 				{
-					//UserId = userIdInt,
-					//UserName = model.UserName ?? khachhang.UserName,
-					//Adrress = model.Adrress ?? khachhang.
+					//	UserId = userId,
+					//	UserName = model.UserName ?? khachhang.CustomerName,
+
 				};
 			}
 

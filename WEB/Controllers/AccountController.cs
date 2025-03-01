@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -37,6 +40,10 @@ namespace WEB.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = _mapper.Map<User>(model); //chuyển đổi sang entity AppUser
+				 // Lấy UserID lớn nhất trong DB và tăng lên 1
+				var lastUser = _db.Users.OrderByDescending(u => u.UserId).FirstOrDefault();
+				int newIdNumber = lastUser != null ? int.Parse(lastUser.UserId) + 1 : 1;
+				user.UserId = newIdNumber.ToString(); // Gán ID mới
 				user.Password = model.Password.ToMd5Hash(); // mã hóa mật khẩu
 				_db.Users.Add(user);
 				_db.SaveChanges();
@@ -56,19 +63,19 @@ namespace WEB.Controllers
 			return View();
 		}
 		[HttpPost]
-		public IActionResult Login(LoginVM model, string? ReturnUrl) 
+		public async Task<IActionResult> Login(LoginVM model, string? ReturnUrl) 
 		{
 			ViewBag.ReturnUrl = ReturnUrl;
 			if (ModelState.IsValid) 
 			{
-				var user = _db.Users.SingleOrDefault(us => us.UserName == us.UserName); //kiểm tra danh sách khách khàng us.UserID == us.UserName 
+				var user = _db.Users.SingleOrDefault(us => us.UserName == model.UserName); //kiểm tra danh sách khách khàng us.UserID == us.UserName 
 				if (user == null)
 				{
 					ModelState.AddModelError("Lỗi", "Không có user này ");
 				}
 				else
 				{
-					if (user.Password != model.Password)
+					if (user.Password != model.Password.ToMd5Hash())
 					{
 						ModelState.AddModelError("Lỗi", "Sai thông tin đăng nhập");
 
@@ -79,17 +86,37 @@ namespace WEB.Controllers
 						{
 							new Claim(ClaimTypes.Email,user.Email),
 							new Claim(ClaimTypes.Name,user.UserName),
-							//new Claim("UserId",user.UserId),
+							new Claim("UserId",user.UserId),
+							new Claim(ClaimTypes.Role,"Khách Hàng")
 						};
+
+						var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
+						var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+						await HttpContext.SignInAsync(claimsPrincipal);
+
+
+						if (Url.IsLocalUrl(ReturnUrl))
+						{
+							return Redirect(ReturnUrl);
+						}
+						else
+						{
+							return Redirect("/Home/Index");
+						}
 					}
 				}
 					
 			}
 			return View();
 		}
-		
 
-		
 		#endregion
+		[Authorize]
+		public IActionResult Profile()
+		{
+			return View();
+		}
+
+
 	}
 }
