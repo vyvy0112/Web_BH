@@ -24,7 +24,6 @@
 
 	public class CheckoutVM()
 	{
-		public bool giongkhachhang { get; set; }
 		public string? UserName { get; set; }
 
 		public string? Adrress { get; set; }

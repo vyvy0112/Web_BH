@@ -70,8 +70,8 @@ namespace WEB.Controllers
 					ProductName = product.ProductName,
 					CategoryId = product.CategoryId,
 					Price = product.Price,
-					Discount = product.Discount,
-					Quantity = product.Quantity,
+					//Discount = product.Discount,
+					//Quantity = product.Quantity,
 					Description = product.Description,
 					Image = product.Image,
 					ShortDescription = product.ShortDescription,
@@ -97,10 +97,12 @@ namespace WEB.Controllers
 				ProductId = p.ProductId,
 				ProductName = p.ProductName,
 				Price= p.Price,
-				Discount = p.Discount,
 				Image = p.Image,
-				ShortDescription = p.ShortDescription,
+				Weight = p.Weight,
+				Pin = p.Pin,
+				Capacity = p.Capacity,
 				CategoryName = p.Category.CategoryName
+				
 			});
 			return View(result);
 		}

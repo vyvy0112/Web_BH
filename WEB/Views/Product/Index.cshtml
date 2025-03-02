@@ -30,7 +30,7 @@
 									<div class="single-products">
 										<div class="productinfo text-center">
 											<img src="@Url.Content("~/image/"+item.Image)" alt="" />
-											<h2>@item.Price VND</h2>
+											<h2>@item.Price.ToString("#,##") VND</h2>
 											<p>@item.ProductName</p>
 											<p>RAM: @item.Capacity</p>
 											<p>Pin: @item.Pin</p>

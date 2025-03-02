@@ -147,20 +147,15 @@ namespace WEB.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				// Lấy UserId từ Claims và chuyển đổi sang int
+				
 				var userId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_UserId).Value;
-				// Lấy user từ database theo userId
+				
 				var khachhang = new Customer();
 
-				if (model.giongkhachhang)
-				{
-					khachhang = _context.Customers.SingleOrDefault(kh => kh.CustomerId == userId);
-				}
-
+				
 				var hoadon = new Order
 				{
-					//	UserId = userId,
-					//	UserName = model.UserName ?? khachhang.CustomerName,
+					
 
 				};
 			}
