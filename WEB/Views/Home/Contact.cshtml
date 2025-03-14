@@ -1,9 +1,28 @@
-﻿<div id="contact-page" class="container">
+﻿@model WEB.Data.Contact
+
+<h3>Trang Liên Hệ</h3>
+<div id="contact-page" class="container">
 	<div class="bg">
 		<div class="row">
 			<div class="col-sm-12">
-				<h2 class="title text-center">Contact <strong>Us</strong></h2>
+				<h2 class="title text-center">Liên Hệ Chúng Tôi <strong></strong></h2>
 				<div id="gmap" class="contact-map">
+				@* 	<iframe width="100%"
+							height="450"
+							style="border:0;"
+							loading="lazy"
+							allowfullscreen
+							referrerpolicy="no-referrer-when-downgrade"
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093673!2d144.9537353153165!3d-37.81627917975167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce720!2zU29tZSBTdHJlZXQ!5e0!3m2!1sen!2sus!4v1614313672682!5m2!1sen!2sus">
+					</iframe> *@
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.5880892509394!2d105.76964527450913!3d10.05080857215947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08806423d239d%3A0xb19ed94d8def719b!2zMjU2IMSQLiBOZ3V54buFbiBWxINuIEPhu6ssIEFuIEhvw6AsIE5pbmggS2nhu4F1LCBD4bqnbiBUaMahLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1741080891561!5m2!1svi!2s" width="100%"
+							height="450"
+							style="border:0;"
+							loading="lazy"
+							allowfullscreen
+							referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+
 				</div>
 			</div>
 		</div>
@@ -12,36 +31,44 @@
 				<div class="contact-form">
 					<h2 class="title text-center">Get In Touch</h2>
 					<div class="status alert alert-success" style="display: none"></div>
-					<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+				@if(TempData["SuccessMessage"] != null)
+					{
+						<div class="alert alert-success">
+							@TempData["SuccessMessage"]
+						</div>
+					}
+				<form asp-action="Contact" asp-controller="Home" id="main-contact-form" class="contact-form row" name="contact-form" method="post">
 						<div class="form-group col-md-6">
-							<input type="text" name="name" class="form-control" required="required" placeholder="Name">
+						<div>
+				         	<label>Tên đăng nhập:</label>
+					        <input asp-for="@Model.FullName" class="form-control" />
+					        <span asp-validation-for="FullName" class="text-danger"></span>
+				        </div>
 						</div>
 						<div class="form-group col-md-6">
-							<input type="email" name="email" class="form-control" required="required" placeholder="Email">
+							<label>Email:</label>
+					        <input asp-for="@Model.Email" class="form-control" />
+					        <span asp-validation-for="Email" class="text-danger"></span>
 						</div>
 						<div class="form-group col-md-12">
-							<input type="text" name="subject" class="form-control" required="required" placeholder="Subject">
+							<label>Nội dung liên hệ: </label>
+					        <input asp-for="@Model.Message" class="form-control" />
+					        <span asp-validation-for="Message" class="text-danger"></span>
 						</div>
 						<div class="form-group col-md-12">
-							<textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
-						</div>
-						<div class="form-group col-md-12">
-							<input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
+							<input type="submit" name="submit" class="btn btn-primary pull-right" value="Gửi đi">
 						</div>
 					</form>
 				</div>
 			</div>
 			<div class="col-sm-4">
 				<div class="contact-info">
-					<h2 class="title text-center">Contact Info</h2>
+					<h2 class="title text-center">Thông tin Liên Hệ</h2>
 					<address>
-						<p>Shop Bán Điện Thoại</p>
-						<p>Địa Chỉ: Xã Vị Thủy, Huyện Vị Thủy, Tỉnh Hậu Giang</p>
-						<p>0899069754</p>
-						<p>Fax: 1-714-252-0026</p>
-						<p>Email: tttkieucntt2211013@student.ctuet.edu.vn</p>
-						<p>Email: ntthicntt2211029@student.ctuet.edu.vn</p>
-						<p?>Email: tkphungcntt2211048</p>
+						<p>Shop MOBILUX</p>
+						<p>256 Nguyễn Văn Cừ, An Hòa, Ninh Kiều, Cần Thơ </p>
+						<p>SĐT: 0899069754</p>
+						<p>Email: mobilux@gmail.com</p>
 					</address>
 					<div class="social-networks">
 						<h2 class="title text-center">Social Networking</h2>

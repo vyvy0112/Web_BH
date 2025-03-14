@@ -31,9 +31,14 @@
 					<input asp-for="@Model.Password" type="password" class="form-control" />
 					<span asp-validation-for="Password" class="text-danger"></span>
 					</div>
+
 					<button type="submit" class="btn btn-primary">Đăng ký</button>
-					<a asp-action="Login" asp-controller="Account">Đăng Nhập </a>
-					</form>
+					<a asp-controller="Account" asp-action="Login">
+					 <button class="btn btn-primary">Đăng nhập</button>
+
+				    </a>
+
+                    </form>
 					
 					
 

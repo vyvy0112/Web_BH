@@ -88,16 +88,14 @@
 <section id="do_action">
 	<div class="container">
 		<div class="heading">
-			<h3>What would you like to do next?</h3>
-			<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-		</div>
+			<h3> Đơn Hàng</h3>
+@* 			<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+ *@		</div>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="total_area">
 					<ul>
 						<li>Thành Tiền: <span>@Model.Sum(p => p.TotalPrice).ToString("#,##") VND</span></li>
-						<li>Eco Tax <span>$2</span></li>
-						<li>Shipping Cost <span>Free</span></li>
 						<li>Tông Cộng:  <span>@Model.Sum(p => p.TotalPrice).ToString("#,##") VND</span></li>
 					</ul>
 					<div style="text-align: center;">

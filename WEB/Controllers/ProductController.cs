@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WEB.Data;
@@ -52,11 +53,13 @@ namespace WEB.Controllers
 
 		public IActionResult Detail(int? id)
 		{
-			//var product = db.Products.SingleOrDefault(x => x.ProductId == id);
-			//return View(product);
-			var product = db.Products.Include(x => x.Category)
-				.SingleOrDefault(x => x.ProductId == id);
 
+			//var product = db.Products.Include(x => x.CategoryId)
+			//	.SingleOrDefault(x => x.ProductId == id);
+			var product = db.Products
+	        .Include(x => x.Category) // Bao gồm thông tin danh mục sản phẩm
+	        .Include(x => x.Reviews)  // Bao gồm đánh giá sản phẩm
+	        .SingleOrDefault(x => x.ProductId == id);
 
 
 			if (product == null)
@@ -64,24 +67,30 @@ namespace WEB.Controllers
 				return NotFound();
 			}
 
-			var model = new ProductVM()
-				{
-					ProductId = product.ProductId,
-					ProductName = product.ProductName,
-					CategoryId = product.CategoryId,
-					Price = product.Price,
-					//Discount = product.Discount,
-					//Quantity = product.Quantity,
-					Description = product.Description,
-					Image = product.Image,
-					ShortDescription = product.ShortDescription,
-					Capacity = product.Capacity,
-					Weight = product.Weight,
-					Pin = product.Pin,
-					CategoryName = product.Category?.CategoryName //lấy tên thương hiệu
-				};
-			
-	
+			//var model = new ProductVM()
+			//{
+			//	ProductId = product.ProductId,
+			//	ProductName = product.ProductName,
+			//	CategoryId = product.CategoryId,
+			//	Price = product.Price,
+			//	Discount = product.Discount,
+			//	Description = product.Description,
+			//	Image = product.Image,
+			//	ShortDescription = product.ShortDescription,
+			//	Capacity = product.Capacity,
+			//	Weight = product.Weight,
+			//	Pin = product.Pin,
+			//	CategoryName = product.Category?.CategoryName //lấy tên thương hiệu
+			//};
+
+			var model = new ProductDetailsVM()
+			{
+				ProductsDetails = product,
+				ReviewsDetails = product.Reviews.ToList(), //danh sách đánh giá
+				ReviewForm = new ReviewVM(), //form đánh giá
+				
+			};
+
 			return View(model);
 		}
 
@@ -107,6 +116,44 @@ namespace WEB.Controllers
 			return View(result);
 		}
 
+		// Lấy danh sách đánh giá theo sản phẩm
+		[HttpGet]		      
+		public IActionResult Reviews(int productId)
+		{
+			var product = db.Products.FirstOrDefault(x=>x.ProductId == productId);
+			if (product == null)
+			{
+				return NotFound();
+			}
+			var model = new ReviewVM()
+			{
+				ProductId = productId
+			};
+			return View(model);
+		}
+
+		
+		[HttpPost]
+		public IActionResult Reviews([Bind("ProductId,Name,Email,Comment, Star, CreatedAt")] ReviewVM re)
+		{
+			var review = new Review
+			{
+				Name = re.Name,
+				Email = re.Email,
+				Comment = re.Comment,
+				ProductId = re.ProductId,
+				Star = re.Star,
+				CreatedAt = DateTime.Now
+			};
+
+			db.Reviews.Add(review);
+			db.SaveChanges();
+			TempData["SuccessMessage"] = "Đánh giá thành công";
+
+			return RedirectToAction("Detail", new { id = re.ProductId });
+		}
 
 	}
+
 }
+

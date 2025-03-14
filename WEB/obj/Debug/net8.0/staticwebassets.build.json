@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MCeyeu8UG9H/hhyoim1zxdod9AYFVahysrOhWrcHmTo=",
+  "Hash": "2RA8ES600NS/sTwspvPGJPi4OrH2nJztUYSn5PJ/nrk=",
   "Source": "WEB",
   "BasePath": "_content/WEB",
   "Mode": "Default",
@@ -528,6 +528,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\opporeno13f.jpg"
+    },
+    {
+      "Identity": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\image\\page404.jpg",
+      "SourceId": "WEB",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\",
+      "BasePath": "_content/WEB",
+      "RelativePath": "image/page404.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\page404.jpg"
     },
     {
       "Identity": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\image\\redmi13.jpg",
@@ -2029,25 +2048,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\product-details.html"
-    },
-    {
-      "Identity": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\sendemail.php",
-      "SourceId": "WEB",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\",
-      "BasePath": "_content/WEB",
-      "RelativePath": "sendemail.php",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\sendemail.php"
     },
     {
       "Identity": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\shop.html",

@@ -12,37 +12,13 @@
 				</ol>
 			</div><!--/breadcrums-->
 
-			<div class="step-one">
-				<h2 class="heading">Step1</h2>
-			</div>
-			<div class="checkout-options">
-				<h3>New User</h3>
-				<p>Checkout options</p>
-				<ul class="nav">
-					<li>
-						<label><input type="checkbox"> Register Account</label>
-					</li>
-					<li>
-						<label><input type="checkbox"> Guest Checkout</label>
-					</li>
-					<li>
-						<a href=""><i class="fa fa-times"></i>Cancel</a>
-					</li>
-				</ul>
-			</div><!--/checkout-options-->
-
-			<div class="register-req">
-				<p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
-			</div><!--/register-req-->
-
 			<div class="shopper-informations">
 				<div class="row">
 					<div class="col-sm-8 clearfix">
 						<div class="bill-to">
-							<p>Bill To</p>
+							<p>Đơn Hàng</p>
 							<div class="form-one">
 								<form>
-									
 								<div class="form-item">
 									<label class="form-label my-3"> Người nhận hàng</label>
 									<input type="text" name="UserName" class="form-control"/>
@@ -51,20 +27,22 @@
 									<label class="form-label my-3"> Địa chỉ nhận hàng</label>
 									<input type="text" name="Adrress" class="form-control" placeholder="18 Nguyễn Văn Linh" />
 								</div>
-									<input type="text" placeholder="Email*">
-									<input type="text" placeholder="Title">
-									<input type="text" placeholder="First Name *">
-									<input type="text" placeholder="Middle Name">
-									<input type="text" placeholder="Last Name *">
-									<input type="text" placeholder="Address 1 *">
-									<input type="text" placeholder="Address 2">
+								<div class="form-item">
+									<label class="form-label my-3"> Email</label>
+									<input type="text" name="Email" class="form-control" placeholder="18 Nguyễn Văn Linh" />
+								</div>
+								<div class="form-item">
+									<label class="form-label my-3"> Số Điện Thoại</label>
+									<input type="text" name="Phone" class="form-control" placeholder="18 Nguyễn Văn Linh" />
+								</div>
+				
 								</form>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="order-message">
-							<p>Note</p>
+							<p>Ghi chú</p>
 							<textarea name="Note"  placeholder="Ghi chú" rows="16"></textarea>
 							<label><input type="checkbox"> Ghi chú</label>
 						</div>	
@@ -79,12 +57,12 @@
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Item</td>
-							<td class="description"></td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-							<td></td>
+						<td class="image">Sản Phẩm</td>
+						<td class="description"></td>
+						<td class="price">Giá</td>
+						<td class="quantity">Số Lượng</td>
+						<td class="total">Tổng Cộng</td>
+						<td></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -123,21 +101,10 @@
 							<td colspan="2">
 								<table class="table table-condensed total-result">
 									<tr>
-										<td>Cart Sub Total</td>
+										<td>Thành Tiền</td>
 										<td>@Model.Sum(p => p.TotalPrice).ToString("#,##") VND</td>
 									</tr>
-									<tr>
-										<td>Exo Tax</td>
-										<td>$2</td>
-									</tr>
-									<tr class="shipping-cost">
-										<td>Shipping Cost</td>
-										<td>Free</td>										
-									</tr>
-									<tr>
-										<td>Total</td>
-										<td><span>$61</span></td>
-									</tr>
+								
 								</table>
 							</td>
 						</tr>
@@ -149,7 +116,7 @@
 						<label><input type="checkbox"> Direct Bank Transfer</label>
 					</span>
 					<span>
-						<label><input type="checkbox"> Check Payment</label>
+						<label><input type="checkbox"> VNPay</label>
 					</span>
 					<span>
 						<label><input type="checkbox"> Paypal</label>

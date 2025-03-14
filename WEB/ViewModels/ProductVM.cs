@@ -1,4 +1,6 @@
-﻿namespace WEB.ViewModels
+﻿using WEB.Data;
+
+namespace WEB.ViewModels
 {
 	public class ProductVM
 	{
@@ -9,7 +11,7 @@
 
 		public double Price { get; set; }
 
-		//public double Discount { get; set; }
+		public double Discount { get; set; }
 
 		//public int Quantity { get; set; }
 
@@ -28,11 +30,13 @@
 		public string CategoryName { get; set; } = null!;
 
 		public int? Number { get; set; }
+
+		public ReviewVM Review { get; set; } 
 	}
 
 
 
-	public class ProductViewModel
+    public class ProductViewModel
 	{
 		public int ProductId { get; set; }
 		public string ProductName { get; set; } = null!;

@@ -40,8 +40,9 @@ https://learn.microsoft.com/en-us/aspnet/core/security/authentication/cookie?vie
 builder.Services.AddAuthentication
 	(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 	{
-		options.LoginPath = "Account/Login";
-		options.AccessDeniedPath = "/AccessDenied"; //đăng nhập mà chưa có quyền chuyển hướng đến
+		options.LoginPath = "/Account/Login";
+		options.LogoutPath = "/Account/Logout";
+		options.AccessDeniedPath = "/Account/AccessDenied"; //đăng nhập mà chưa có quyền chuyển hướng đến
 	});
 
 

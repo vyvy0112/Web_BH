@@ -1,7 +1,7 @@
 ﻿
+@using WEB.ViewModels
 
-
- @model WEB.ViewModels.ProductVM
+ @model ProductDetailsVM
 
 
 
@@ -16,7 +16,7 @@
 					<!--product-details-->
 					<div class="col-sm-5">
 						<div class="view-product">
-							<img src="~/image/@Model.Image" alt="@Model.ProductName  " />
+							<img src="~/image/@Model.ProductsDetails.Image" alt="@Model.ProductsDetails.ProductName  " />
 						</div>
 						@* <div id="similar-product" class="carousel slide" data-ride="carousel">
 
@@ -35,27 +35,26 @@
 						<div class="product-information">
 							<!--/product-information-->
 							<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-							<h2>@Model.ProductName</h2>
-							<p>Mô Tả: @Model.ShortDescription</p>
+							<h2>@Model.ProductsDetails.ProductName</h2>
+							<p>Mô Tả: @Model.ProductsDetails.ShortDescription</p>
 							<img src="images/product-details/rating.png" alt="" />
 							<span>
-								<span>@Model.Price VND</span>
-								<label>Quantity:@Model.CategoryName.ToString()</label>
-								<input type="text" value="3" />
+								<span>@Model.ProductsDetails.Price.ToString("#,##") VND</span>
+								
 
-								<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductId">
+								<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductsDetails.ProductId">
 									<button type="button" class="btn btn-fefault cart">
-										<i asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductId" class="fa fa-shopping-cart"></i>
+										<i asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductsDetails.ProductId" class="fa fa-shopping-cart"></i>
 										Add to cart
 									</button>
 
 								</a>
 							</span>
-							<p>Hãng: @Model.CategoryName</p>
-							<p>Ram: @Model.Capacity</p>
-							<p>Pin: @Model.Pin</p>
-							<p>Trọng Lượng: @Model.Weight</p>
-							<p>Giảm Giá:  VND</p>
+ 							<p>Hãng: @Model.ProductsDetails.Category.CategoryName</p>
+ 							<p>Ram: @Model.ProductsDetails.Capacity</p>
+							<p>Pin: @Model.ProductsDetails.Pin</p>
+							<p>Trọng Lượng: @Model.ProductsDetails.Weight</p>
+							<p>Giảm Giá: @Model.ProductsDetails.Discount.ToString("#,##") VND</p>
 							<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
 						</div><!--/product-information-->
 					</div>
@@ -67,7 +66,7 @@
 						<ul class="nav nav-tabs">
 							<li><a href="#companyprofile" data-toggle="tab">Giới Thiệu Sản Phẩm</a></li>
 						
-							<li class="active"><a href="#reviews" data-toggle="tab">Reviews</a></li>
+							<li class="active"><a href="#reviews" data-toggle="tab">Đánh Giá Sản Phẩm</a></li>
 						</ul>
 					</div>
 					<div class="tab-content">
@@ -75,33 +74,98 @@
 						
 
 						<div class="tab-pane fade" id="companyprofile">
-							<p>@Model.Description</p>
+							<p>@Model.ProductsDetails.Description</p>
 						</div>
 
 
+
+
+                        <h3> Đánh Giá Sản Phẩm</h3>
+						@if (TempData["SuccessMessage"] != null)
+
+						{
+							<div class="alert alert-success">
+								@TempData["SuccessMessage"]
+							</div>
+						}
 						<div class="tab-pane fade active in" id="reviews">
 							<div class="col-sm-12">
 								<ul>
 									<li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-									<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+									<li><a href=""><i class="fa fa-clock-o"></i> @Model.ReviewForm.CreatedAt</a></li>
 									<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
 								</ul>
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 								<p><b>Write Your Review</b></p>
 
-								<form action="#">
-									<span>
-										<input type="text" placeholder="Your Name" />
-										<input type="email" placeholder="Email Address" />
-									</span>
-									<textarea name=""></textarea>
+@* 								<form asp-action="Reviews" method="post">
+									<input type="hidden" name="ProductId" value="@Model.ProductsDetails.ProductId" />
+
+									<div>
+										<label>Họ Tên:</label>
+										<input asp-for="@Model.ReviewForm.Name" class="form-control" value="@Model.ReviewForm.Name"  />
+										<span asp-validation-for="@Model.ReviewForm.Name" class="text-danger"></span>
+									</div>
+									<div>
+										<label>Email:</label>
+										<input asp-for="@Model.ReviewForm.Email" class="form-control" value="@Model.ReviewForm.Email" />
+										<span asp-validation-for="@Model.ReviewForm.Email" class="text-danger"></span>
+									</div>
+									<div>
+										<label>Nội dung:</label>
+										<input asp-for="@Model.ReviewForm.Comment" class="form-control" value="@Model.ReviewForm.Comment" />
+										<span asp-validation-for="@Model.ReviewForm.Comment" class="text-danger"></span>
+									</div>
+									<div>
+										<label>Chấm điểm:</label>
+										<select class="form-control">
+											<option value="1">1 sao</option>
+											<option value="2">2 sao</option>
+											<option value="3">3 sao</option>
+											<option value="4">4 sao</option>
+											<option value="5">5 sao</option>
+										</select>
+									</div>
+
+								
+
 									<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-									<button type="button" class="btn btn-default pull-right">
-										Submit
-									</button>
+									<button type="submit" class="btn btn-primary">Gửi đánh giá</button>
 								</form>
-							</div>
+ *@
+								<form asp-action="Reviews" method="post">
+									<input type="hidden" name="ProductId" value="@Model.ProductsDetails.ProductId" />
+
+									<label>Họ Tên:</label>
+									<input asp-for="ReviewForm.Name" class="form-control" required />
+									<span asp-validation-for="ReviewForm.Name" class="text-danger"></span>
+
+									<label>Email:</label>
+									<input asp-for="ReviewForm.Email" class="form-control" required />
+									<span asp-validation-for="ReviewForm.Email" class="text-danger"></span>
+
+									<label>Nội dung:</label>
+									<textarea asp-for="ReviewForm.Comment" class="form-control" required></textarea>
+									<span asp-validation-for="ReviewForm.Comment" class="text-danger"></span>
+
+									<label>Chấm điểm:</label>
+									<select asp-for="ReviewForm.Star" class="form-control">
+										<option value="1">1 sao</option>
+										<option value="2">2 sao</option>
+										<option value="3">3 sao</option>
+										<option value="4">4 sao</option>
+										<option value="5">5 sao</option>
+									</select>
+
+									<button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+								</form>
+
+</div>
 						</div>
+
+
+
+
 
 					</div>
 				</div><!--/category-tab-->
@@ -111,3 +175,7 @@
 		</div>
 	</div>
 </section>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

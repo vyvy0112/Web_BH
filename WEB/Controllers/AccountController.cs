@@ -92,7 +92,8 @@ namespace WEB.Controllers
 
 						var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
 						var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-						await HttpContext.SignInAsync(claimsPrincipal);
+						await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+						//await HttpContext.SignInAsync(claimsPrincipal);
 
 
 						if (Url.IsLocalUrl(ReturnUrl))
@@ -117,6 +118,12 @@ namespace WEB.Controllers
 			return View();
 		}
 
+
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			return RedirectToAction("Index","Product");
+		}
 
 	}
 }

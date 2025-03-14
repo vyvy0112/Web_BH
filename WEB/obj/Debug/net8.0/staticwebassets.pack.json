@@ -105,6 +105,10 @@
       "PackagePath": "staticwebassets\\image\\opporeno13f.jpg"
     },
     {
+      "Id": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\image\\page404.jpg",
+      "PackagePath": "staticwebassets\\image\\page404.jpg"
+    },
+    {
       "Id": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\image\\redmi13.jpg",
       "PackagePath": "staticwebassets\\image\\redmi13.jpg"
     },
@@ -419,10 +423,6 @@
     {
       "Id": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\product-details.html",
       "PackagePath": "staticwebassets\\product-details.html"
-    },
-    {
-      "Id": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\sendemail.php",
-      "PackagePath": "staticwebassets\\sendemail.php"
     },
     {
       "Id": "C:\\BanHang\\MOBI-main\\WEB\\WEB\\wwwroot\\shop.html",
